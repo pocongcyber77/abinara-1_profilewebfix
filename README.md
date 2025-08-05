@@ -51,13 +51,13 @@ Sebelum menjalankan proyek ini, pastikan Anda telah menginstall:
 
 2. **Install Dependencies**
    ```bash
-   pnpm install
-   ```
+pnpm install
+```
 
 3. **Jalankan Development Server**
    ```bash
-   pnpm dev
-   ```
+pnpm dev
+```
 
 4. **Buka Browser**
    - Website akan berjalan di: `http://localhost:5173` (atau port lain jika 5173 sudah terpakai)
