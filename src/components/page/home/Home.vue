@@ -22,11 +22,12 @@
               The team consists of students of Sepuluh Nopember Institute of Technology. one of the
               competitions that is followed is KRSRI (Kontes Robot SAR Indonesia).
             </p>
-            
+
             <!-- Workshop Button Mobile -->
             <button
               @click="openWorkshopPopup"
-              class="mt-8 px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              class="workshop-btn mt-8 px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              :class="{ 'button-animated': showWorkshopButton }"
             >
               🎓 Join Workshop
             </button>
@@ -54,11 +55,12 @@
               The team consists of students of Sepuluh Nopember Institute of Technology. one of the
               competitions that is followed is KRSRI (Kontes Robot SAR Indonesia).
             </p>
-            
+
             <!-- Workshop Button Desktop -->
             <button
               @click="openWorkshopPopup"
-              class="mt-8 px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              class="workshop-btn mt-8 px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              :class="{ 'button-animated': showWorkshopButton }"
             >
               🎓 Join Workshop
             </button>
@@ -118,9 +120,9 @@
   <Achievements />
   <Gallery />
   <!-- <Alumni /> -->
-  
+
   <!-- Workshop Popup -->
-  <WorkshopPopup 
+  <WorkshopPopup
     :is-visible="showWorkshopPopup"
     @close="closeWorkshopPopup"
   />
@@ -144,8 +146,20 @@ export default {
   },
   data() {
     return {
-      showWorkshopPopup: false
+      showWorkshopPopup: false,
+      showWorkshopButton: false
     }
+  },
+  mounted() {
+    // Auto-show workshop button after 1 second
+    setTimeout(() => {
+      this.showWorkshopButton = true
+    }, 1000)
+
+    // Auto-show workshop popup after 1 second
+    setTimeout(() => {
+      this.showWorkshopPopup = true
+    }, 1000)
   },
   methods: {
     openWorkshopPopup() {
@@ -196,12 +210,12 @@ export default {
     min-height: 100vh;
     padding: 20px 0;
   }
-  
+
   .flip-card-wrapper {
     padding: 10px;
     margin-bottom: 20px;
   }
-  
+
   .flip-card-wrapper-mobile {
     width: 100%;
     padding: 10px;
@@ -230,5 +244,60 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+/* Enhanced Workshop Button Styles */
+.workshop-btn {
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.5) translateY(50px);
+  transition: all 0.8s ease-out;
+}
+
+.button-animated {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  animation: buttonPulse 2s ease-in-out infinite 0.8s;
+}
+
+.workshop-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.workshop-btn:hover::before {
+  left: 100%;
+}
+
+.workshop-btn:hover {
+  box-shadow:
+    0 12px 35px rgba(229, 62, 62, 0.4),
+    0 0 30px rgba(229, 62, 62, 0.3),
+    0 0 60px rgba(229, 62, 62, 0.2);
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      0 8px 25px rgba(229, 62, 62, 0.3),
+      0 0 20px rgba(229, 62, 62, 0.1),
+      0 0 40px rgba(229, 62, 62, 0.05);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow:
+      0 12px 35px rgba(229, 62, 62, 0.4),
+      0 0 40px rgba(229, 62, 62, 0.3),
+      0 0 80px rgba(229, 62, 62, 0.2),
+      0 0 120px rgba(229, 62, 62, 0.1);
+  }
 }
 </style>
